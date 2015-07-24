@@ -1,0 +1,32 @@
+spawn ./setup-seafile.sh
+
+expect "You are running this script as ROOT. Are you sure to continue?"
+send "yes\r"
+
+expect "to continue"
+send "\r"
+
+expect "server name"
+send "myseafile\r"
+
+expect "This server's ip or domain"
+send "127.0.0.1\r"
+
+expect "default: 10001"
+send "\r"
+
+expect "default: /root/seafile-data"
+send "\r"
+
+expect "default: 12001"
+send "\r"
+
+expect "default: 8082"
+send "\r"
+
+expect "If you are OK with the configuration"
+send "\r"
+
+expect "Now let's setup seahub configuration"
+send "\r"
+
