@@ -27,6 +27,8 @@ send "\r"
 expect "If you are OK with the configuration"
 send "\r"
 
-expect "Now let's setup seahub configuration"
+expect "setup seahub configuration"
 send "\r"
+
+expect eof
 
