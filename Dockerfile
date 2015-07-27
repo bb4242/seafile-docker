@@ -14,11 +14,11 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y wget python python-setuptools python-imaging sqlite3 apache2 python-flup libapache2-mod-fastcgi expect
 
 # Install seafile
-RUN cd /root && wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_4.2.3_x86-64.tar.gz && tar xavf seafile-server_4.2.3_x86-64.tar.gz
+RUN mkdir /seafile && cd /seafile && wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_4.2.3_x86-64.tar.gz && tar xavf seafile-server_4.2.3_x86-64.tar.gz
 
 # Run the seafile installation script
-ADD seafile-install.expect /root/seafile-server-4.2.3/
-RUN cd /root/seafile-server-4.2.3 && ls && expect seafile-install.expect
+ADD seafile-install.expect /seafile/seafile-server-4.2.3/
+RUN cd /seafile/seafile-server-4.2.3 && ls && expect seafile-install.expect
 
 
 ###############################################################
@@ -27,9 +27,8 @@ RUN cd /root/seafile-server-4.2.3 && ls && expect seafile-install.expect
 
 ADD apache2/ /etc/apache2/
 RUN rm /etc/apache2/sites-enabled/* && a2ensite seafile-ssl && a2enmod rewrite && a2enmod proxy_http && a2enmod ssl
-
 RUN echo "FILE_SERVER_ROOT = 'https://127.0.0.1/seafhttp'" >> /root/seahub_settings.py
-
+RUN ln -s /seafile/seafile-server-latest/seahub/media/ /var/www/html
 
 ## To actually run seafile:
 # /etc/init.d/apache2 start
