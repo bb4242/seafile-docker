@@ -1,33 +1,52 @@
 spawn ./setup-seafile.sh
 
+set timeout 60
+
+# Default timeout handler should print an error an exit
+expect_after {
+    timeout {
+	puts "\n\n**** Installation failed! ****\n"; exit 1
+    }
+}
+
 expect "You are running this script as ROOT. Are you sure to continue?"
+sleep 1
 send "yes\r"
 
 expect "to continue"
+sleep 1
 send "\r"
 
 expect "server name"
+sleep 1
 send "myseafile\r"
 
 expect "This server's ip or domain"
+sleep 1
 send "127.0.0.1\r"
 
 expect "default: 10001"
+sleep 1
 send "\r"
 
-expect "default: /root/seafile-data"
+expect "Where would you like to store your seafile data"
+sleep 1
 send "\r"
 
 expect "default: 12001"
+sleep 1
 send "\r"
 
 expect "default: 8082"
+sleep 1
 send "\r"
 
 expect "If you are OK with the configuration"
+sleep 1
 send "\r"
 
 expect "setup seahub configuration"
+sleep 1
 send "\r"
 
 expect eof
